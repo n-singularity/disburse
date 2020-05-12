@@ -1,13 +1,13 @@
 ## how to run the project:
-
   - sesuaikan environment di file main.php
   - kosongkan database dan lakukan migration
   - eksekusi file migration.php dengan command `php migration.php`
-  - jalakan php serve dengan coomand `php -S localhost:8888 -t public`
+  - eksekusi command `composer dump-autoload`
+  - jalakan php serve dengan coomand `php -S localhost:8888 -t public` (port bisa disesuaikan).
  
  
  ## Endpoint yang tersedia
- - Untuk melakukan store 
+ - Untuk melakukan store ke 3rd parti dan database.
     - [POST] {host}/disburse
  - Untuk get data dari database 
     - [GET]  {host}/disburse/{id_transaction}

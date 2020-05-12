@@ -50,7 +50,7 @@ class DisburseController
      * @param $idTransaction
      * @throws Exception
      */
-    public function refreshAndGetDisburse($idTransaction)
+    public function refreshAndShowDisburse($idTransaction)
     {
         $disburse = (new Disburse())->find($idTransaction);
     
