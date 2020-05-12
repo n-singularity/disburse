@@ -38,7 +38,12 @@ class DisburseController
     {
         $disburse = (new Disburse())->find($idTransaction);
 
-        echo $disburse?$disburse->toJson():null;
+        if(!$disburse){
+            http_response_code(404);
+            echo "Not Found";
+        }else{
+            echo $disburse?$disburse->toJson():null;
+        }
     }
     
     /**
@@ -48,10 +53,13 @@ class DisburseController
     public function refreshAndGetDisburse($idTransaction)
     {
         $disburse = (new Disburse())->find($idTransaction);
-        
+    
         if(!$disburse){
-            $disburse = new Disburse();
+            http_response_code(404);
+            echo "Not Found";
+            die;
         }
+
         $client   = new HttpClient();
         $response = $client->request('GET', "https://nextar.flip.id/disburse/$idTransaction", [
           'Authorization' => "Basic ".base64_encode(getenv('NEXTAR_SECRET_KEY').":")
