@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Entities\Disburse;
+use App\Services\HttpClient;
 use Exception;
 
 /**
@@ -13,28 +14,52 @@ class DisburseController
 {
     /**
      * @param $params
+     * @throws Exception
      */
     public function storeDisburse($params)
     {
-    
+        $client   = new HttpClient();
+        $response = $client->request('POST', 'https://nextar.flip.id/disburse', [
+          'Authorization' => "Basic ".base64_encode(getenv('NEXTAR_SECRET_KEY').":")
+        ], $params);
+
+        $disburse = new Disburse();
+        $disburse->setParameterFromArray(json_decode($response, true));
+        $disburse->save();
+        
+        echo $disburse->toJson();
     }
     
     /**
      * @param $idTransaction
-     * @param $params
      * @throws Exception
      */
-    public function showDisburse($idTransaction, $params)
+    public function showDisburse($idTransaction)
     {
+        $disburse = (new Disburse())->find($idTransaction);
 
+        echo $disburse?$disburse->toJson():null;
     }
     
     /**
      * @param $idTransaction
-     * @param $params
+     * @throws Exception
      */
-    public function refreshAndGetDisburse($idTransaction, $params)
+    public function refreshAndGetDisburse($idTransaction)
     {
+        $disburse = (new Disburse())->find($idTransaction);
+        
+        if(!$disburse){
+            $disburse = new Disburse();
+        }
+        $client   = new HttpClient();
+        $response = $client->request('GET', "https://nextar.flip.id/disburse/$idTransaction", [
+          'Authorization' => "Basic ".base64_encode(getenv('NEXTAR_SECRET_KEY').":")
+        ]);
     
+        $disburse->setParameterFromArray(json_decode($response, true));
+        $disburse->save();
+    
+        echo  $disburse->toJson();
     }
 }

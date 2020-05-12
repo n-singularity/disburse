@@ -19,6 +19,7 @@ class Route
             $params = self::compare($routePath, $_SERVER['REQUEST_URI']);
     
             if(is_array($params)){
+                $params = array_merge($params, $_GET);
                 $controller($params);
                 exit();
             }
@@ -30,8 +31,9 @@ class Route
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $params = self::compare($routePath, $_SERVER['REQUEST_URI']);
-    
+
             if(is_array($params)){
+                $params = array_merge($params, $_POST);
                 $controller($params);
                 exit();
             }

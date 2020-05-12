@@ -12,6 +12,32 @@ abstract class AbstractEntity
     protected $tableName;
     protected $isNew = true;
     
+    public function toArray(){
+        $vars =  get_object_vars($this);
+        unset($vars['tableName']);
+        unset($vars['isNew']);
+        return $vars;
+    }
+    
+    public function toJson(){
+        return json_encode($this->toArray());
+    }
+    
+    public function setParameterFromArray($input)
+    {
+        foreach ($input as $key => $value) {
+            $key = str_replace("_", " ", $key);
+            $key = ucwords($key);
+            $key = str_replace(" ", "", $key);
+        
+            $method = "set" . ucfirst($key);
+        
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            };
+        }
+    }
+    
     /**
      * @return $this
      * @throws Exception
@@ -47,7 +73,7 @@ abstract class AbstractEntity
             
             $sql .= " WHERE (`id` =" . $vars['id'] . ")";
         }
-
+        
         if ($conn->query($sql) === TRUE) {
             return $this;
         } else {

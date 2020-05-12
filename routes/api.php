@@ -7,11 +7,11 @@ App\Services\Route::POST('/disburse', function ($params){
 });
 
 App\Services\Route::GET('/disburse/:id_transaction', function ($params){
-    (new DisburseController())->showDisburse($params['id_transaction'], $params);
+    (new DisburseController())->showDisburse($params['id_transaction']);
 });
 
 App\Services\Route::GET('/disburse/:id_transaction/refresh', function ($params){
-    (new DisburseController())->refreshAndGetDisburse($params['id_transaction'], $params);
+    (new DisburseController())->refreshAndGetDisburse($params['id_transaction']);
 });
 
 echo "Not Found";
