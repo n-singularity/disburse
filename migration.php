@@ -14,7 +14,7 @@ if ($conn->connect_error) {
 }
 
 $sql = "CREATE TABLE `testDb`.`disburses` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL,
   `amount` DECIMAL NULL,
   `status` VARCHAR(45) NULL,
   `timestamp` DATETIME NULL,

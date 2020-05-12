@@ -16,7 +16,7 @@ class Route
     public static function GET($routePath, $controller)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            $params = self::compare($_SERVER['REQUEST_URI'], $routePath);
+            $params = self::compare($routePath, $_SERVER['REQUEST_URI']);
     
             if(is_array($params)){
                 $controller($params);
@@ -29,8 +29,8 @@ class Route
     public static function POST($routePath, $controller)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $params = self::compare($_SERVER['REQUEST_URI'], $routePath);
-        
+            $params = self::compare($routePath, $_SERVER['REQUEST_URI']);
+    
             if(is_array($params)){
                 $controller($params);
                 exit();
@@ -43,15 +43,14 @@ class Route
         $routeComponents = explode('/', $routePath);
         $urlComponents   = explode("/", $urlPath);
         
-        
         if (count($routeComponents) != count($urlComponents)) {
             return false;
         }
         
         $params = [];
-        
+
         foreach ($routeComponents as $key => $component) {
-            if (count($component) > 0 && @$component[0] == ':') { // check if it is a named param.
+            if (strlen($component) > 0 && $component[0] == ':') { // check if it is a named param.
                 $params[substr($component, 1)] = $urlComponents[$key];
             } elseif ($component != $urlComponents[$key]) {
                 return false;

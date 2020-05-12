@@ -2,11 +2,14 @@
 
 namespace App\Controllers;
 
+use App\Entities\Disburse;
+use Exception;
+
 /**
  * Class Disburse
  * @package App\Controllers
  */
-class Disburse
+class DisburseController
 {
     /**
      * @param $params
@@ -19,10 +22,11 @@ class Disburse
     /**
      * @param $idTransaction
      * @param $params
+     * @throws Exception
      */
     public function showDisburse($idTransaction, $params)
     {
-    
+
     }
     
     /**

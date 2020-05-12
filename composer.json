@@ -2,7 +2,8 @@
     "name": "disburse/disburse",
     "type": "project",
     "require": {
-        "php": ">=7.1.3"
+        "php": ">=7.1.3",
+        "ext-mysqli": "*"
     },
     "autoload": {
         "psr-4": {

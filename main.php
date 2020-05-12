@@ -1,6 +1,5 @@
 <?php
-putenv('DB_HOST=localhost');
-putenv('DB_PORT=3306');
+putenv('DB_HOST=localhost:3306');
 putenv('DB_NAME=testDb');
 putenv('DB_USERNAME=root');
 putenv('DB_PASSWORD=root');
