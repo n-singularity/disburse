@@ -3,11 +3,11 @@
   - kosongkan database dan lakukan migration
   - eksekusi file migration.php dengan command `php migration.php`
   - eksekusi command `composer dump-autoload`
-  - jalakan php serve dengan coomand `php -S localhost:8888 -t public` (port bisa disesuaikan).
+  - jalankan php serve dengan coomand `php -S localhost:8888 -t public` (port bisa disesuaikan).
  
  
  ## Endpoint yang tersedia
- - Untuk melakukan store ke 3rd parti dan database.
+ - Untuk melakukan store ke 3rd party dan database.
     - [POST] {host}/disburse
  - Untuk get data dari database 
     - [GET]  {host}/disburse/{id_transaction}
